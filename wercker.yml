@@ -1,0 +1,12 @@
+box:
+  id: openjdk
+  ports:
+    - 8000
+    
+build:
+  steps:
+  - install-packages:
+    packages: maven
+  - script:
+    name: maven build
+    code: mvn clean assembly:assembly
