@@ -10,3 +10,14 @@ build:
   - script:
     name: maven build
     code: mvn clean assembly:assembly
+
+push-release:
+  steps:
+    - internal/docker-push:
+      username: $DOCKER_USERNAME
+      password: $OCI_AUTH_TOKEN
+      repository: $DOCKER_REGISTRY/v2
+      tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+      working-dir: /pipeline/source
+      ports: $PORT
+      cmd: sh target/bin/start
